@@ -13,6 +13,24 @@ Behold My Awesome Project!
 
 :License: MIT
 
+Changes to run this project quickly:
+--------
+
+* Create an .env file at the root of the project with value:
+
+::
+
+    DATABASE_URL=127.0.0.1
+    USE_DOCKER=yes
+    POSTGRES_HOST=postgres
+    POSTGRES_PORT=5432
+    POSTGRES_DB=bd_django
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD=12312300
+    
+* Need to change default value in the file within the project /config/settings/base.py
+
+    READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", True)
 
 Settings
 --------
