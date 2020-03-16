@@ -32,6 +32,70 @@ Changes to run this project quickly:
 
     READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", True)
 
+
+* Setting Up Development Environment
+* Make sure to have the following on your host:
+
+::
+
+    Python 3.7
+    PostgreSQL.
+    Redis, if using Celery
+    First things first.
+
+* Create a virtualenv::
+
+        $ python3.7 -m venv <virtual env path>
+        
+* Activate the virtualenv you have just created::
+
+        $ source <virtual env path>/bin/activate
+        
+* Install development requirements::
+
+    $ pip install -r requirements/local.txt
+    $ pre-commit install
+
+ .. note::
+
+    the `pre-commit` exists in the generated project as default.
+    for the details of `pre-commit`, follow the [site of pre-commit](https://pre-commit.com/).
+
+* Create a new PostgreSQL database using createdb::
+
+    $ createdb <what you have entered as the project_slug at setup stage> -U postgres --password <password>
+    
+  Note
+
+ if this is the first time a database is created on your machine you might need an initial PostgreSQL set up to allow local connections     & set a password for the postgres user. The postgres documentation explains the syntax of the config file that you need to change.
+
+* Set the environment variables for your database(s)::
+
+    $ export DATABASE_URL=postgres://postgres:<password>@127.0.0.1:5432/<DB name given to createdb>
+    # Optional: set broker URL if using Celery
+    $ export CELERY_BROKER_URL=redis://localhost:6379/0
+  
+  Note
+  Check out the Settings page for a comprehensive list of the environments variables.
+
+  See also
+
+  To help setting up your environment variables, you have a few options:
+
+  create an .env file in the root of your project and define all the variables you need in it. Then you just need to have   
+  DJANGO_READ_DOT_ENV_FILE=True in your machine and all the variables will be read.
+  Use a local environment manager like direnv
+  Apply migrations:
+
+    $ python manage.py migrate
+* See the application being served through Django development server::
+
+    $ python manage.py runserver 0.0.0.0:8000
+
+
+
+
+
 Settings
 --------
 
